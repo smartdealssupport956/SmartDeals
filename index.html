@@ -1,0 +1,2365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Smart Deals - Online Shopping</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f6f8;
+  color:#111827;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#1769e0;
+  color:white;
+  box-shadow:0 2px 10px #0002;
+}
+
+.topbar{
+  max-width:1200px;
+  margin:auto;
+  min-height:62px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 15px;
+}
+
+.logo{
+  font-size:23px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.search{
+  flex:1;
+  max-width:550px;
+  margin:auto;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  border:0;
+  outline:0;
+  padding:12px 15px;
+  border-radius:25px;
+}
+
+.nav{
+  display:flex;
+  gap:7px;
+}
+
+.nav button{
+  background:#ffffff22;
+  color:white;
+  border:0;
+  border-radius:9px;
+  padding:9px 11px;
+}
+
+.nav button:hover{
+  background:#ffffff38;
+}
+
+.cart-count{
+  background:#ff3b30;
+  border-radius:50%;
+  padding:2px 6px;
+  font-size:11px;
+}
+
+.page{
+  max-width:1200px;
+  margin:auto;
+  padding:18px 15px 80px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1769e0,#4d91ff);
+  color:white;
+  border-radius:18px;
+  padding:30px 22px;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  opacity:.95;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:20px 0 13px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.product-card{
+  background:white;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 2px 10px #0000000d;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.product-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 7px 20px #0002;
+}
+
+.product-image{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  background:#eee;
+}
+
+.product-info{
+  padding:12px;
+}
+
+.product-name{
+  font-weight:bold;
+  min-height:40px;
+}
+
+.rating{
+  color:#f59e0b;
+  font-size:14px;
+  margin:6px 0;
+}
+
+.price{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.old-price{
+  text-decoration:line-through;
+  color:#888;
+  font-size:13px;
+  margin-left:6px;
+}
+
+.discount{
+  color:#16a34a;
+  font-size:13px;
+  margin-left:5px;
+}
+
+.stock{
+  color:#15803d;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.empty{
+  text-align:center;
+  padding:50px 15px;
+  background:white;
+  border-radius:15px;
+}
+
+.back{
+  border:0;
+  background:#fff;
+  padding:10px 14px;
+  border-radius:9px;
+  margin-bottom:15px;
+  box-shadow:0 1px 5px #0001;
+}
+
+.detail{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+}
+
+.detail-image{
+  width:100%;
+  max-height:520px;
+  object-fit:contain;
+  border-radius:15px;
+  background:#f4f4f4;
+}
+
+.detail h1{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.description{
+  line-height:1.6;
+  color:#555;
+  margin:15px 0;
+}
+
+.option{
+  margin:15px 0;
+}
+
+.option label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.option select,
+.form input,
+.form textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  outline:none;
+  background:white;
+}
+
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:15px 0;
+}
+
+.qty-btn{
+  width:35px;
+  height:35px;
+  border:0;
+  border-radius:8px;
+  background:#e8eefc;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+
+.btn{
+  border:0;
+  padding:13px 17px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.btn-primary{
+  background:#1769e0;
+  color:white;
+}
+
+.btn-success{
+  background:#16a34a;
+  color:white;
+}
+
+.btn-danger{
+  background:#dc2626;
+  color:white;
+}
+
+.btn-light{
+  background:#eef2f7;
+}
+
+.related{
+  margin-top:25px;
+}
+
+.cart-item{
+  background:white;
+  padding:13px;
+  border-radius:13px;
+  display:flex;
+  gap:13px;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.cart-item img{
+  width:85px;
+  height:85px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.cart-content{
+  flex:1;
+}
+
+.cart-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+
+.total-box{
+  background:white;
+  padding:18px;
+  border-radius:14px;
+  margin-top:15px;
+}
+
+.total-row{
+  display:flex;
+  justify-content:space-between;
+  margin:8px 0;
+}
+
+.total-final{
+  font-size:22px;
+  font-weight:bold;
+  border-top:1px solid #ddd;
+  padding-top:12px;
+}
+
+.form-box{
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  max-width:650px;
+  margin:auto;
+}
+
+.form-group{
+  margin-bottom:14px;
+}
+
+.form-group label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.order-card{
+  background:white;
+  padding:15px;
+  border-radius:14px;
+  margin-bottom:12px;
+}
+
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#e8f0ff;
+  color:#1769e0;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  z-index:5000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.modal-box{
+  width:100%;
+  max-width:430px;
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  max-height:90vh;
+  overflow:auto;
+}
+
+.close{
+  float:right;
+  border:0;
+  background:#eee;
+  border-radius:50%;
+  width:32px;
+  height:32px;
+}
+
+.login-tabs{
+  display:flex;
+  gap:5px;
+  margin-bottom:15px;
+}
+
+.login-tabs button{
+  flex:1;
+  border:0;
+  padding:10px;
+  border-radius:8px;
+  background:#eee;
+}
+
+.login-tabs .active{
+  background:#1769e0;
+  color:white;
+}
+
+.google-btn{
+  width:100%;
+  border:1px solid #ddd;
+  background:white;
+  padding:12px;
+  border-radius:9px;
+  margin-top:10px;
+}
+
+.otp-box{
+  display:none;
+}
+
+.notification{
+  background:white;
+  padding:15px;
+  border-radius:13px;
+  margin-bottom:10px;
+  box-shadow:0 2px 8px #0001;
+}
+
+.unread{
+  border-left:4px solid #1769e0;
+}
+
+.small{
+  color:#777;
+  font-size:13px;
+}
+
+.loading{
+  text-align:center;
+  padding:40px;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%);
+  background:#111827;
+  color:white;
+  padding:12px 18px;
+  border-radius:25px;
+  z-index:9999;
+  display:none;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:850px){
+  .products{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .detail{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+  .topbar{
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    font-size:20px;
+  }
+
+  .search{
+    order:3;
+    flex-basis:100%;
+  }
+
+  .nav{
+    margin-left:auto;
+  }
+
+  .nav button{
+    padding:8px;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+  }
+
+  .product-image{
+    height:170px;
+  }
+
+  .product-info{
+    padding:9px;
+  }
+
+  .price{
+    font-size:17px;
+  }
+
+  .detail{
+    padding:13px;
+  }
+
+  .detail h1{
+    font-size:24px;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .cart-item{
+    align-items:flex-start;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="topbar">
+
+    <div class="logo">Smart Deals</div>
+
+    <div class="search">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search products..."
+      >
+    </div>
+
+    <div class="nav">
+      <button onclick="showHome()">Home</button>
+      <button onclick="showCart()">
+        🛒 <span id="cartCount" class="cart-count">0</span>
+      </button>
+      <button onclick="showOrders()">Orders</button>
+      <button onclick="showNotifications()">🔔</button>
+      <button onclick="openLogin()">Account</button>
+    </div>
+
+  </div>
+</header>
+
+<main class="page" id="app"></main>
+
+<div class="modal" id="loginModal">
+  <div class="modal-box">
+
+    <button class="close" onclick="closeLogin()">×</button>
+
+    <h2>Login / Signup</h2>
+    <br>
+
+    <div class="login-tabs">
+      <button id="emailTab" class="active" onclick="switchLogin('email')">
+        Email
+      </button>
+
+      <button id="phoneTab" onclick="switchLogin('phone')">
+        Mobile OTP
+      </button>
+    </div>
+
+    <div id="emailLogin">
+
+      <div class="form-group">
+        <label>Email</label>
+        <input class="form input" id="loginEmail" type="email">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input class="form input" id="loginPassword" type="password">
+      </div>
+
+      <button class="btn btn-primary" style="width:100%" onclick="emailLogin()">
+        Login
+      </button>
+
+      <button class="btn btn-light" style="width:100%;margin-top:8px"
+        onclick="emailSignup()">
+        Create Account
+      </button>
+
+      <button class="google-btn" onclick="googleLogin()">
+        🔵 Continue with Google
+      </button>
+
+    </div>
+
+    <div id="phoneLogin" class="hidden">
+
+      <div id="phoneStep">
+
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input
+            class="form input"
+            id="phoneNumber"
+            placeholder="+91XXXXXXXXXX"
+          >
+        </div>
+
+        <div id="recaptcha"></div>
+
+        <button class="btn btn-primary"
+          style="width:100%;margin-top:10px"
+          onclick="sendOTP()">
+          Send OTP
+        </button>
+
+      </div>
+
+      <div id="otpStep" class="otp-box">
+
+        <div class="form-group">
+          <label>Enter OTP</label>
+          <input
+            class="form input"
+            id="otpCode"
+            maxlength="6"
+            placeholder="6 digit OTP"
+          >
+        </div>
+
+        <button class="btn btn-success"
+          style="width:100%"
+          onclick="verifyOTP()">
+          Verify OTP
+        </button>
+
+      </div>
+
+    </div>
+
+    <p id="loginMessage" class="small" style="margin-top:12px"></p>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  onAuthStateChanged,
+  signOut
+}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  addDoc,
+  updateDoc,
+  query,
+  where,
+  orderBy,
+  onSnapshot,
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDhxguIh_oSvRF0DqKKXO3frzQV0haYeGo",
+  authDomain: "smart-deals-99646.firebaseapp.com",
+  projectId: "smart-deals-99646",
+  storageBucket: "smart-deals-99646.firebasestorage.app",
+  messagingSenderId: "778513438968",
+  appId: "1:778513438968:web:ac20adc60ff63edd42830d"
+};
+
+
+const appFirebase = initializeApp(firebaseConfig);
+
+const auth = getAuth(appFirebase);
+const db = getFirestore(appFirebase);
+
+
+/* =========================
+   GLOBAL DATA
+========================= */
+
+let products = [];
+let cart = JSON.parse(localStorage.getItem("smartDealsCart") || "[]");
+let currentProduct = null;
+let selectedQuantity = 1;
+let selectedSize = "";
+let selectedColor = "";
+let confirmationResult = null;
+let recaptchaVerifier = null;
+let currentUser = null;
+
+
+/* =========================
+   HELPERS
+========================= */
+
+window.toast = function(message){
+
+  const el = document.getElementById("toast");
+
+  el.textContent = message;
+  el.style.display = "block";
+
+  setTimeout(()=>{
+    el.style.display = "none";
+  },2500);
+};
+
+
+function money(value){
+  return "₹" + Number(value || 0).toLocaleString("en-IN");
+}
+
+
+function saveCart(){
+
+  localStorage.setItem(
+    "smartDealsCart",
+    JSON.stringify(cart)
+  );
+
+  updateCartCount();
+}
+
+
+function updateCartCount(){
+
+  const total = cart.reduce(
+    (sum,item)=>sum + Number(item.quantity || 0),
+    0
+  );
+
+  document.getElementById("cartCount").textContent = total;
+}
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(auth, async user=>{
+
+  currentUser = user;
+
+  if(user){
+
+    await createUserRecord(user);
+
+  }
+
+});
+
+
+async function createUserRecord(user){
+
+  const ref = doc(db,"users",user.uid);
+
+  const snap = await getDoc(ref);
+
+  if(!snap.exists()){
+
+    await addDoc(collection(db,"userProfiles"),{
+      uid:user.uid,
+      name:user.displayName || "",
+      email:user.email || "",
+      phone:user.phoneNumber || "",
+      createdAt:serverTimestamp()
+    });
+
+  }
+
+}
+
+
+/* =========================
+   EMAIL LOGIN
+========================= */
+
+window.emailLogin = async function(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  if(!email || !password){
+
+    document.getElementById("loginMessage").textContent =
+      "Email और password भरें।";
+
+    return;
+  }
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    toast("Login successful");
+
+    closeLogin();
+
+  }catch(error){
+
+    document.getElementById("loginMessage").textContent =
+      error.message;
+
+  }
+
+};
+
+
+/* =========================
+   EMAIL SIGNUP
+========================= */
+
+window.emailSignup = async function(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  if(!email || !password){
+
+    document.getElementById("loginMessage").textContent =
+      "Email और password भरें।";
+
+    return;
+  }
+
+  if(password.length < 6){
+
+    document.getElementById("loginMessage").textContent =
+      "Password कम से कम 6 characters का होना चाहिए।";
+
+    return;
+  }
+
+  try{
+
+    await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    toast("Account created");
+
+    closeLogin();
+
+  }catch(error){
+
+    document.getElementById("loginMessage").textContent =
+      error.message;
+
+  }
+
+};
+
+
+/* =========================
+   GOOGLE LOGIN
+========================= */
+
+window.googleLogin = async function(){
+
+  try{
+
+    const provider = new GoogleAuthProvider();
+
+    await signInWithPopup(auth,provider);
+
+    toast("Google login successful");
+
+    closeLogin();
+
+  }catch(error){
+
+    document.getElementById("loginMessage").textContent =
+      error.message;
+
+  }
+
+};
+
+
+/* =========================
+   PHONE OTP
+========================= */
+
+window.switchLogin = function(type){
+
+  document.getElementById("emailLogin")
+    .classList.toggle("hidden",type !== "email");
+
+  document.getElementById("phoneLogin")
+    .classList.toggle("hidden",type !== "phone");
+
+  document.getElementById("emailTab")
+    .classList.toggle("active",type === "email");
+
+  document.getElementById("phoneTab")
+    .classList.toggle("active",type === "phone");
+
+  if(type === "phone"){
+
+    setupRecaptcha();
+
+  }
+
+};
+
+
+function setupRecaptcha(){
+
+  if(recaptchaVerifier) return;
+
+  recaptchaVerifier = new RecaptchaVerifier(
+    auth,
+    "recaptcha",
+    {
+      size:"normal"
+    }
+  );
+
+  recaptchaVerifier.render();
+
+}
+
+
+window.sendOTP = async function(){
+
+  const phone =
+    document.getElementById("phoneNumber").value.trim();
+
+  if(!phone){
+
+    document.getElementById("loginMessage").textContent =
+      "Mobile number डालें।";
+
+    return;
+  }
+
+  try{
+
+    setupRecaptcha();
+
+    confirmationResult =
+      await signInWithPhoneNumber(
+        auth,
+        phone,
+        recaptchaVerifier
+      );
+
+    document.getElementById("phoneStep")
+      .style.display = "none";
+
+    document.getElementById("otpStep")
+      .style.display = "block";
+
+    document.getElementById("loginMessage").textContent =
+      "OTP भेज दिया गया है।";
+
+  }catch(error){
+
+    document.getElementById("loginMessage").textContent =
+      error.message;
+
+  }
+
+};
+
+
+window.verifyOTP = async function(){
+
+  const code =
+    document.getElementById("otpCode").value.trim();
+
+  if(!confirmationResult){
+
+    return;
+  }
+
+  try{
+
+    await confirmationResult.confirm(code);
+
+    toast("Mobile login successful");
+
+    closeLogin();
+
+  }catch(error){
+
+    document.getElementById("loginMessage").textContent =
+      "OTP गलत है।";
+
+  }
+
+};
+
+
+/* =========================
+   LOGIN MODAL
+========================= */
+
+window.openLogin = function(){
+
+  document.getElementById("loginModal").style.display = "flex";
+
+};
+
+
+window.closeLogin = function(){
+
+  document.getElementById("loginModal").style.display = "none";
+
+};
+
+
+window.logout = async function(){
+
+  await signOut(auth);
+
+  toast("Logged out");
+
+  showHome();
+
+};
+
+
+/* =========================
+   LOAD PRODUCTS
+========================= */
+
+async function loadProducts(){
+
+  const app = document.getElementById("app");
+
+  app.innerHTML =
+    '<div class="loading">Loading products...</div>';
+
+  try{
+
+    const snapshot =
+      await getDocs(collection(db,"products"));
+
+    products = snapshot.docs.map(d=>({
+      id:d.id,
+      ...d.data()
+    }));
+
+    showHome();
+
+  }catch(error){
+
+    console.error(error);
+
+    app.innerHTML = `
+      <div class="empty">
+        <h3>Products load नहीं हुए</h3>
+        <p class="small">
+          Firestore में products collection और rules check करें।
+        </p>
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+window.showHome = function(){
+
+  const search =
+    document.getElementById("searchInput").value
+    .toLowerCase();
+
+  const filtered = products.filter(product=>
+    String(product.name || "")
+      .toLowerCase()
+      .includes(search)
+  );
+
+  document.getElementById("app").innerHTML = `
+
+    <section class="hero">
+      <h1>Welcome to Smart Deals</h1>
+      <p>Shop smart. Get better deals.</p>
+    </section>
+
+    <div class="section-title">
+      <h2>Latest Products</h2>
+      <span class="small">${filtered.length} products</span>
+    </div>
+
+    <div class="products" id="productGrid"></div>
+  `;
+
+  renderProducts(filtered);
+
+};
+
+
+function renderProducts(list){
+
+  const grid =
+    document.getElementById("productGrid");
+
+  if(!list.length){
+
+    grid.innerHTML =
+      '<div class="empty" style="grid-column:1/-1">No products found.</div>';
+
+    return;
+  }
+
+  grid.innerHTML = list.map(product=>`
+
+    <article
+      class="product-card"
+      onclick="openProduct('${product.id}')"
+    >
+
+      <img
+        class="product-image"
+        src="${escapeHTML(product.image || 'https://via.placeholder.com/500x500?text=Smart+Deals')}"
+        alt=""
+      >
+
+      <div class="product-info">
+
+        <div class="product-name">
+          ${escapeHTML(product.name || "Product")}
+        </div>
+
+        <div class="rating">
+          ⭐ ${product.rating || 0}
+        </div>
+
+        <div>
+
+          <span class="price">
+            ${money(product.price)}
+          </span>
+
+          ${
+            product.oldPrice
+            ? `<span class="old-price">${money(product.oldPrice)}</span>`
+            : ""
+          }
+
+          ${
+            product.discount
+            ? `<span class="discount">${escapeHTML(product.discount)}% OFF</span>`
+            : ""
+          }
+
+        </div>
+
+        <div class="stock">
+          ${
+            Number(product.stock || 0) > 0
+            ? "✓ In Stock"
+            : "Out of Stock"
+          }
+        </div>
+
+      </div>
+
+    </article>
+
+  `).join("");
+
+}
+
+
+/* =========================
+   PRODUCT DETAIL
+========================= */
+
+window.openProduct = function(id){
+
+  const product =
+    products.find(p=>p.id === id);
+
+  if(!product) return;
+
+  currentProduct = product;
+  selectedQuantity = 1;
+
+  selectedSize =
+    Array.isArray(product.sizes)
+    ? product.sizes[0] || ""
+    : "";
+
+  selectedColor =
+    Array.isArray(product.colors)
+    ? product.colors[0] || ""
+    : "";
+
+  const related =
+    products
+      .filter(p=>
+        p.id !== product.id &&
+        (
+          p.category &&
+          p.category === product.category
+        )
+      )
+      .slice(0,4);
+
+  document.getElementById("app").innerHTML = `
+
+    <button class="back" onclick="showHome()">
+      ← Back to Products
+    </button>
+
+    <section class="detail">
+
+      <div>
+        <img
+          class="detail-image"
+          src="${escapeHTML(product.image || 'https://via.placeholder.com/700')}"
+        >
+      </div>
+
+      <div>
+
+        <h1>${escapeHTML(product.name)}</h1>
+
+        <div class="rating">
+          ⭐ ${product.rating || 0}
+        </div>
+
+        <div>
+          <span class="price">
+            ${money(product.price)}
+          </span>
+
+          ${
+            product.oldPrice
+            ? `<span class="old-price">${money(product.oldPrice)}</span>`
+            : ""
+          }
+        </div>
+
+        ${
+          product.discount
+          ? `<p class="discount">${escapeHTML(product.discount)}% OFF</p>`
+          : ""
+        }
+
+        <p class="description">
+          ${escapeHTML(product.description || "No description available.")}
+        </p>
+
+        ${
+          Array.isArray(product.sizes) && product.sizes.length
+          ? `
+          <div class="option">
+            <label>Size</label>
+            <select id="sizeSelect">
+              ${
+                product.sizes.map(size=>
+                  `<option>${escapeHTML(size)}</option>`
+                ).join("")
+              }
+            </select>
+          </div>
+          `
+          : ""
+        }
+
+        ${
+          Array.isArray(product.colors) && product.colors.length
+          ? `
+          <div class="option">
+            <label>Color</label>
+            <select id="colorSelect">
+              ${
+                product.colors.map(color=>
+                  `<option>${escapeHTML(color)}</option>`
+                ).join("")
+              }
+            </select>
+          </div>
+          `
+          : ""
+        }
+
+        <div class="quantity">
+
+          <b>Quantity:</b>
+
+          <button
+            class="qty-btn"
+            onclick="changeDetailQty(-1)"
+          >
+            −
+          </button>
+
+          <span id="detailQty">1</span>
+
+          <button
+            class="qty-btn"
+            onclick="changeDetailQty(1)"
+          >
+            +
+          </button>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn btn-primary"
+            onclick="addCurrentToCart()"
+          >
+            🛒 Add to Cart
+          </button>
+
+          <button
+            class="btn btn-success"
+            onclick="buyCurrentNow()"
+          >
+            ⚡ Buy Now
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="related">
+
+      <div class="section-title">
+        <h2>You May Also Like</h2>
+      </div>
+
+      <div class="products" id="relatedGrid"></div>
+
+    </section>
+  `;
+
+  if(
+    document.getElementById("sizeSelect")
+  ){
+    document.getElementById("sizeSelect").value =
+      selectedSize;
+  }
+
+  if(
+    document.getElementById("colorSelect")
+  ){
+    document.getElementById("colorSelect").value =
+      selectedColor;
+  }
+
+  renderRelated(related);
+
+};
+
+
+function renderRelated(list){
+
+  const grid =
+    document.getElementById("relatedGrid");
+
+  if(!list.length){
+
+    grid.innerHTML =
+      '<p class="small">No related products.</p>';
+
+    return;
+  }
+
+  grid.innerHTML = list.map(product=>`
+
+    <article
+      class="product-card"
+      onclick="openProduct('${product.id}')"
+    >
+
+      <img
+        class="product-image"
+        src="${escapeHTML(product.image || 'https://via.placeholder.com/500')}"
+      >
+
+      <div class="product-info">
+
+        <div class="product-name">
+          ${escapeHTML(product.name)}
+        </div>
+
+        <div class="price">
+          ${money(product.price)}
+        </div>
+
+      </div>
+
+    </article>
+
+  `).join("");
+
+}
+
+
+window.changeDetailQty = function(change){
+
+  const max =
+    Number(currentProduct?.stock || 25);
+
+  selectedQuantity += change;
+
+  if(selectedQuantity < 1)
+    selectedQuantity = 1;
+
+  if(selectedQuantity > max)
+    selectedQuantity = max;
+
+  document.getElementById("detailQty")
+    .textContent = selectedQuantity;
+
+};
+
+
+function getSelectedOptions(){
+
+  const size =
+    document.getElementById("sizeSelect")?.value || "";
+
+  const color =
+    document.getElementById("colorSelect")?.value || "";
+
+  return {size,color};
+
+}
+
+
+/* =========================
+   CART
+========================= */
+
+window.addCurrentToCart = function(){
+
+  if(!currentProduct) return;
+
+  const options =
+    getSelectedOptions();
+
+  addToCart(
+    currentProduct,
+    selectedQuantity,
+    options.size,
+    options.color
+  );
+
+};
+
+
+function addToCart(product,quantity,size="",color=""){
+
+  const existing =
+    cart.find(item=>
+      item.productId === product.id &&
+      item.size === size &&
+      item.color === color
+    );
+
+  const totalItems =
+    cart.reduce(
+      (sum,item)=>sum + Number(item.quantity || 0),
+      0
+    );
+
+  if(totalItems + quantity > 25){
+
+    toast("Cart में maximum 25 items रख सकते हैं।");
+
+    return;
+  }
+
+  if(existing){
+
+    existing.quantity += quantity;
+
+  }else{
+
+    cart.push({
+      productId:product.id,
+      name:product.name,
+      image:product.image || "",
+      price:Number(product.price || 0),
+      quantity,
+      size,
+      color
+    });
+
+  }
+
+  saveCart();
+
+  toast("Product cart में add हो गया।");
+
+}
+
+
+window.showCart = function(){
+
+  if(!cart.length){
+
+    document.getElementById("app").innerHTML = `
+      <div class="empty">
+        <h2>Your Cart is Empty</h2>
+        <br>
+        <button class="btn btn-primary" onclick="showHome()">
+          Continue Shopping
+        </button>
+      </div>
+    `;
+
+    return;
+  }
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="section-title">
+      <h2>Shopping Cart</h2>
+    </div>
+
+    <div id="cartList"></div>
+
+    <div class="total-box">
+
+      <div class="total-row">
+        <span>Items</span>
+        <b id="cartItemsTotal"></b>
+      </div>
+
+      <div class="total-row">
+        <span>Delivery</span>
+        <b>FREE</b>
+      </div>
+
+      <div class="total-row total-final">
+        <span>Total</span>
+        <span id="cartTotal"></span>
+      </div>
+
+      <button
+        class="btn btn-success"
+        style="width:100%;margin-top:15px"
+        onclick="checkoutCart()"
+      >
+        Proceed to Checkout
+      </button>
+
+    </div>
+  `;
+
+  renderCart();
+
+};
+
+
+function renderCart(){
+
+  const list =
+    document.getElementById("cartList");
+
+  let total = 0;
+  let count = 0;
+
+  list.innerHTML = cart.map((item,index)=>{
+
+    const itemTotal =
+      Number(item.price) * Number(item.quantity);
+
+    total += itemTotal;
+    count += Number(item.quantity);
+
+    return `
+
+      <div class="cart-item">
+
+        <img src="${escapeHTML(item.image)}">
+
+        <div class="cart-content">
+
+          <b>${escapeHTML(item.name)}</b>
+
+          ${
+            item.size
+            ? `<div class="small">Size: ${escapeHTML(item.size)}</div>`
+            : ""
+          }
+
+          ${
+            item.color
+            ? `<div class="small">Color: ${escapeHTML(item.color)}</div>`
+            : ""
+          }
+
+          <div>
+            ${money(item.price)}
+          </div>
+
+          <div class="cart-actions">
+
+            <button
+              class="qty-btn"
+              onclick="cartQty(${index},-1)"
+            >−</button>
+
+            <b>${item.quantity}</b>
+
+            <button
+              class="qty-btn"
+              onclick="cartQty(${index},1)"
+            >+</button>
+
+            <button
+              class="btn btn-danger"
+              style="padding:7px 10px"
+              onclick="removeCart(${index})"
+            >
+              Remove
+            </button>
+
+          </div>
+
+        </div>
+
+        <b>${money(itemTotal)}</b>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+  document.getElementById("cartItemsTotal")
+    .textContent = count;
+
+  document.getElementById("cartTotal")
+    .textContent = money(total);
+
+}
+
+
+window.cartQty = function(index,change){
+
+  if(!cart[index]) return;
+
+  const total =
+    cart.reduce(
+      (sum,item)=>sum + Number(item.quantity || 0),
+      0
+    );
+
+  if(change > 0 && total >= 25){
+
+    toast("Maximum 25 items.");
+
+    return;
+  }
+
+  cart[index].quantity += change;
+
+  if(cart[index].quantity <= 0){
+
+    cart.splice(index,1);
+
+  }
+
+  saveCart();
+
+  showCart();
+
+};
+
+
+window.removeCart = function(index){
+
+  cart.splice(index,1);
+
+  saveCart();
+
+  showCart();
+
+};
+
+
+/* =========================
+   BUY NOW
+========================= */
+
+window.buyCurrentNow = function(){
+
+  if(!currentProduct) return;
+
+  const options =
+    getSelectedOptions();
+
+  cart = [{
+    productId:currentProduct.id,
+    name:currentProduct.name,
+    image:currentProduct.image || "",
+    price:Number(currentProduct.price || 0),
+    quantity:selectedQuantity,
+    size:options.size,
+    color:options.color
+  }];
+
+  saveCart();
+
+  checkoutCart();
+
+};
+
+
+/* =========================
+   CHECKOUT
+========================= */
+
+window.checkoutCart = function(){
+
+  if(!currentUser){
+
+    openLogin();
+
+    toast("पहले login करें।");
+
+    return;
+  }
+
+  if(!cart.length){
+
+    toast("Cart empty है।");
+
+    return;
+  }
+
+  const total =
+    cart.reduce(
+      (sum,item)=>
+        sum + Number(item.price)*Number(item.quantity),
+      0
+    );
+
+  document.getElementById("app").innerHTML = `
+
+    <button class="back" onclick="showCart()">
+      ← Back to Cart
+    </button>
+
+    <div class="form-box">
+
+      <h2>Checkout</h2>
+
+      <br>
+
+      <div class="form">
+
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input id="customerName">
+        </div>
+
+        <div class="form-group">
+          <label>Mobile Number *</label>
+          <input id="customerPhone" type="tel">
+        </div>
+
+        <div class="form-group">
+          <label>House / Village / Building *</label>
+          <textarea id="address"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>City *</label>
+          <input id="city">
+        </div>
+
+        <div class="form-group">
+          <label>State *</label>
+          <input id="state">
+        </div>
+
+        <div class="form-group">
+          <label>PIN Code *</label>
+          <input id="pincode" maxlength="6">
+        </div>
+
+        <div class="form-group">
+          <label>Landmark</label>
+          <input id="landmark">
+        </div>
+
+        <div class="form-group">
+          <label>Payment Method</label>
+          <input value="Cash on Delivery" disabled>
+        </div>
+
+        <div class="total-box">
+          <div class="total-final">
+            Total: ${money(total)}
+          </div>
+        </div>
+
+        <button
+          class="btn btn-success"
+          style="width:100%;margin-top:15px"
+          onclick="placeOrder()"
+        >
+          📦 Place Order
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+};
+
+
+/* =========================
+   PLACE ORDER
+========================= */
+
+window.placeOrder = async function(){
+
+  if(!currentUser){
+
+    openLogin();
+
+    return;
+  }
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  const address =
+    document.getElementById("address").value.trim();
+
+  const city =
+    document.getElementById("city").value.trim();
+
+  const state =
+    document.getElementById("state").value.trim();
+
+  const pincode =
+    document.getElementById("pincode").value.trim();
+
+  const landmark =
+    document.getElementById("landmark").value.trim();
+
+  if(
+    !name ||
+    !phone ||
+    !address ||
+    !city ||
+    !state ||
+    !pincode
+  ){
+
+    toast("सभी required details भरें।");
+
+    return;
+  }
+
+  const total =
+    cart.reduce(
+      (sum,item)=>
+        sum + Number(item.price)*Number(item.quantity),
+      0
+    );
+
+  try{
+
+    const orderRef =
+      await addDoc(collection(db,"orders"),{
+
+        customerId:currentUser.uid,
+
+        customerName:name,
+
+        customerEmail:
+          currentUser.email || "",
+
+        customerPhone:phone,
+
+        address:{
+          house:address,
+          city,
+          state,
+          pincode,
+          landmark
+        },
+
+        items:cart,
+
+        total,
+
+        paymentMethod:"COD",
+
+        status:"Pending",
+
+        createdAt:serverTimestamp(),
+
+        updatedAt:serverTimestamp()
+
+      });
+
+
+    await addDoc(collection(db,"notifications"),{
+
+      userId:currentUser.uid,
+
+      orderId:orderRef.id,
+
+      title:"Order Placed",
+
+      message:
+        "Your order has been placed successfully.",
+
+      read:false,
+
+      createdAt:serverTimestamp()
+
+    });
+
+
+    cart = [];
+
+    saveCart();
+
+    document.getElementById("app").innerHTML = `
+
+      <div class="empty">
+
+        <h2>🎉 Order Placed Successfully!</h2>
+
+        <p style="margin:12px 0">
+          Your Order ID:
+        </p>
+
+        <b>${orderRef.id}</b>
+
+        <br><br>
+
+        <button
+          class="btn btn-primary"
+          onclick="showOrders()"
+        >
+          View My Orders
+        </button>
+
+      </div>
+
+    `;
+
+  }catch(error){
+
+    console.error(error);
+
+    toast("Order place नहीं हुआ: " + error.message);
+
+  }
+
+};
+
+
+/* =========================
+   ORDERS
+========================= */
+
+window.showOrders = async function(){
+
+  if(!currentUser){
+
+    openLogin();
+
+    return;
+  }
+
+  document.getElementById("app").innerHTML =
+    '<div class="loading">Loading orders...</div>';
+
+  try{
+
+    const q =
+      query(
+        collection(db,"orders"),
+        where("customerId","==",currentUser.uid)
+      );
+
+    const snapshot =
+      await getDocs(q);
+
+    const orders =
+      snapshot.docs.map(d=>({
+        id:d.id,
+        ...d.data()
+      }));
+
+    orders.sort((a,b)=>
+      String(b.createdAt?.seconds || "")
+      .localeCompare(
+        String(a.createdAt?.seconds || "")
+      )
+    );
+
+    document.getElementById("app").innerHTML = `
+
+      <div class="section-title">
+        <h2>My Orders</h2>
+      </div>
+
+      <div id="ordersList"></div>
+
+    `;
+
+    const list =
+      document.getElementById("ordersList");
+
+    if(!orders.length){
+
+      list.innerHTML =
+        '<div class="empty">No orders yet.</div>';
+
+      return;
+    }
+
+    list.innerHTML =
+      orders.map(order=>`
+
+        <div
+          class="order-card"
+          onclick="showOrderDetails('${order.id}')"
+          style="cursor:pointer"
+        >
+
+          <b>Order #${escapeHTML(order.id.slice(0,8))}</b>
+
+          <p class="small">
+            ${order.items?.length || 0} product(s)
+          </p>
+
+          <p>
+            <b>${money(order.total)}</b>
+          </p>
+
+          <span class="status">
+            ${escapeHTML(order.status || "Pending")}
+          </span>
+
+        </div>
+
+      `).join("");
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+
+};
+
+
+/* =========================
+   ORDER DETAILS
+========================= */
+
+window.showOrderDetails = async function(orderId){
+
+  const snap =
+    await getDoc(doc(db,"orders",orderId));
+
+  if(!snap.exists()){
+
+    toast("Order नहीं मिला।");
+
+    return;
+  }
+
+  const order = snap.data();
+
+  document.getElementById("app").innerHTML = `
+
+    <button class="back" onclick="showOrders()">
+      ← Back to Orders
+    </button>
+
+    <div class="form-box">
+
+      <h2>Order Details</h2>
+
+      <br>
+
+      <p><b>Order ID:</b> ${escapeHTML(orderId)}</p>
+
+      <p style="margin-top:8px">
+        <b>Status:</b>
+        <span class="status">
+          ${escapeHTML(order.status || "Pending")}
+        </span>
+      </p>
+
+      <hr style="margin:15px 0">
+
+      <h3>Products</h3>
+
+      <div style="margin-top:10px">
+
+        ${
+          (order.items || []).map(item=>`
+
+            <div class="cart-item">
+
+              <img src="${escapeHTML(item.image)}">
+
+              <div class="cart-content">
+
+                <b>${escapeHTML(item.name)}</b>
+
+                <div>
+                  Qty: ${item.quantity}
+                </div>
+
+                ${
+                  item.size
+                  ? `<div class="small">Size: ${escapeHTML(item.size)}</div>`
+                  : ""
+                }
+
+                ${
+                  item.color
+                  ? `<div class="small">Color: ${escapeHTML(item.color)}</div>`
+                  : ""
+                }
+
+              </div>
+
+              <b>${money(item.price)}</b>
+
+            </div>
+
+          `).join("")
+        }
+
+      </div>
+
+      <hr style="margin:15px 0">
+
+      <h3>Delivery Address</h3>
+
+      <p style="margin-top:8px">
+        ${escapeHTML(order.address?.house || "")}<br>
+        ${escapeHTML(order.address?.city || "")},
+        ${escapeHTML(order.address?.state || "")}<br>
+        PIN: ${escapeHTML(order.address?.pincode || "")}
+      </p>
+
+      <p style="margin-top:8px">
+        <b>Payment:</b> Cash on Delivery
+      </p>
+
+      <div class="total-box">
+        <div class="total-final">
+          Total: ${money(order.total)}
+        </div>
+      </div>
+
+    </div>
+  `;
+
+};
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+window.showNotifications = async function(){
+
+  if(!currentUser){
+
+    openLogin();
+
+    return;
+  }
+
+  document.getElementById("app").innerHTML =
+    '<div class="loading">Loading notifications...</div>';
+
+  try{
+
+    const q =
+      query(
+        collection(db,"notifications"),
+        where("userId","==",currentUser.uid)
+      );
+
+    const snapshot =
+      await getDocs(q);
+
+    const notifications =
+      snapshot.docs.map(d=>({
+        id:d.id,
+        ...d.data()
+      }));
+
+    notifications.reverse();
+
+    document.getElementById("app").innerHTML = `
+
+      <div class="section-title">
+        <h2>Notifications</h2>
+      </div>
+
+      <div id="notificationList"></div>
+    `;
+
+    const list =
+      document.getElementById("notificationList");
+
+    if(!notifications.length){
+
+      list.innerHTML =
+        '<div class="empty">No notifications.</div>';
+
+      return;
+    }
+
+    list.innerHTML =
+      notifications.map(n=>`
+
+        <div class="notification ${n.read ? "" : "unread"}">
+
+          <b>${escapeHTML(n.title || "Notification")}</b>
+
+          <p style="margin-top:5px">
+            ${escapeHTML(n.message || "")}
+          </p>
+
+        </div>
+
+      `).join("");
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+
+};
+
+
+/* =========================
+   SEARCH
+========================= */
+
+document.getElementById("searchInput")
+  .addEventListener("input",showHome);
+
+
+/* =========================
+   START
+========================= */
+
+updateCartCount();
+
+loadProducts();
+
+</script>
+
+</body>
+</html>
